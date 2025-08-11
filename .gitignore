@@ -1,1 +1,9 @@
 /.idea/
+/pet-client/.mvn/
+/pet-client/mvnw
+/pet-client/mvnw.cmd
+/pet-admin/mvnw
+/pet-admin/mvnw.cmd
+/pet-admin/.mvn/
+/pet-employee/mvnw
+/pet-employee/mvnw.cmd

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jinxiu.service</groupId>
-    <artifactId>pet-admin</artifactId>
+    <artifactId>pet-employee</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>pet-admin</name>
-    <description>pet-admin</description>
+    <name>pet-employee</name>
+    <description>pet-employee</description>
     <url/>
     <licenses>
         <license/>
