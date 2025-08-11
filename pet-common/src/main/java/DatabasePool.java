@@ -1,3 +1,9 @@
+/**
+ * File: DatabasePool
+ * Author: will.liu
+ * Date: 2025/8/11 18:19
+ * Description: mysql连接池管理
+ */
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;

@@ -2,7 +2,7 @@
  * File: CommonResult
  * Author: will.liu
  * Date: 2025/8/11 18:19
- * Description: 通用返回值
+ * Description: 返回值封装
  */
 public class CommonResult<T> {
     /**
