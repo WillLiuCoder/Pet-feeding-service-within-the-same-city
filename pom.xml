@@ -10,13 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-<!--        <module>mall-common</module>-->
-<!--        <module>mall-mbg</module>-->
-<!--        <module>mall-security</module>-->
-<!--        <module>mall-demo</module>-->
-<!--        <module>mall-admin</module>-->
-<!--        <module>mall-search</module>-->
-<!--        <module>mall-portal</module>-->
         <module>pet-common</module>
         <module>pet-admin</module>
     </modules>
