@@ -7,3 +7,5 @@
 /pet-admin/.mvn/
 /pet-employee/mvnw
 /pet-employee/mvnw.cmd
+/pet-auth/mvnw
+/pet-auth/mvnw.cmd

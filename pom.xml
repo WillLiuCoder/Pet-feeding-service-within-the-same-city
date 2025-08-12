@@ -12,6 +12,9 @@
     <modules>
         <module>pet-common</module>
         <module>pet-admin</module>
+        <module>pet-client</module>
+        <module>pet-employee</module>
+        <module>pet-auth</module>
     </modules>
 
     <parent>
