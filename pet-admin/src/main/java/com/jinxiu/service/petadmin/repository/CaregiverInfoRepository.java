@@ -71,4 +71,14 @@ public interface CaregiverInfoRepository extends JpaRepository<CaregiverInfo, Lo
      */
     @Query("SELECT AVG(c.avgRating) FROM CaregiverInfo c WHERE c.status = 'APPROVED'")
     BigDecimal getAverageRating();
+
+    /**
+     * 根据在线状态统计数量
+     */
+    long countByIsOnline(Boolean isOnline);
+
+    /**
+     * 根据忙碌状态统计数量
+     */
+    long countByIsBusy(Boolean isBusy);
 }
