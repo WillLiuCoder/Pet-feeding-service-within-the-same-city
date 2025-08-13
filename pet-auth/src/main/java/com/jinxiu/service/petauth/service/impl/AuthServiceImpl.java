@@ -267,7 +267,8 @@ public class AuthServiceImpl implements AuthService {
     private void logoutByUserId(Long userId) {
         String tokenKey = "token:" + userId;
         String refreshTokenKey = "refresh_token:" + userId;
-        redisTemplate.delete(tokenKey, refreshTokenKey);
+        redisTemplate.delete(tokenKey);
+        redisTemplate.delete(refreshTokenKey);
     }
     
     /**
