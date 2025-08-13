@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +50,7 @@ public class JwtUtil {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration * 1000);
         
-        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
+        SecretKey key = getSigningKey();
         
         return Jwts.builder()
                 .setClaims(claims)
@@ -114,12 +117,30 @@ public class JwtUtil {
      * 从token中获取Claims
      */
     private Claims getClaimsFromToken(String token) {
-        SecretKey key = Keys.hmacShaKeyFor(secret.getBytes());
+        SecretKey key = getSigningKey();
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    /**
+     * 获取用于HS512的签名密钥
+     * 如果配置的secret长度小于64字节，则使用SHA-512对其进行哈希，保证密钥长度至少为512位
+     */
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        if (keyBytes.length < 64) {
+            try {
+                MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+                keyBytes = sha512.digest(keyBytes); // 64字节
+            } catch (NoSuchAlgorithmException e) {
+                // 理论上不会发生，JDK内置SHA-512
+                throw new IllegalStateException("SHA-512 algorithm not available", e);
+            }
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
     }
     
     /**
