@@ -1,0 +1,337 @@
+# 同城宠物喂养服务系统需求设计文档
+
+## 1. 项目概述
+
+### 1.1 项目背景
+随着宠物经济的快速发展，宠物主人对专业宠物服务需求日益增长。本项目旨在构建一个同城宠物喂养服务平台，连接宠物主人、服务人员和管理方，提供宠物服务。
+
+### 1.2 项目目标
+- 为宠物主人提供便捷的宠物服务预约平台
+- 为服务人员提供稳定的工作机会和收入来源
+- 为管理方提供高效的服务管理和监控工具
+- 建立安全、可靠、透明的宠物服务生态
+
+## 2. 系统架构设计
+
+### 2.1 整体架构
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   管理端(Web)    │    │   客户端(小程序)  │    │  服务端(小程序)  │
+│   pet-admin     │    │   pet-client    │    │  pet-employee   │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │   公共模块       │
+                    │   pet-common    │
+                    └─────────────────┘
+```
+
+### 2.2 技术架构
+- **后端框架**: Spring Boot
+- **数据库**: MySQL
+- **消息推送**: WebSocket + 推送服务
+- **文件存储**: 云存储服务
+- **前端**: Web管理端 + 微信小程序
+
+## 3. 功能需求设计
+
+### 3.1 管理端(Web) - pet-admin
+
+#### 3.1.1 用户管理模块
+- **服务人员管理**
+  - 服务人员信息录入、编辑、删除
+  - 服务人员资质审核（身份证、宠物急救证书等）
+  - 服务区域设置和管理
+  - 服务人员状态管理（在线/离线/忙碌）
+  - 服务人员评分和评价管理
+
+- **客户管理**
+  - 客户信息查看
+  - 客户订单历史查询
+  - 客户投诉处理
+
+#### 3.1.2 服务内容管理模块
+- **服务类型管理**
+  - 喂养服务（定时喂养、特殊饮食要求）
+  - 遛狗服务（时长、路线、特殊要求）
+  - 宠物护理服务（梳毛、清洁等）
+  - 紧急服务（临时照看、紧急就医等）
+
+- **服务定价管理**
+  - 基础价格设置
+  - 区域价格差异
+  - 特殊服务加价
+  - 优惠活动管理
+
+#### 3.1.3 订单管理模块
+- **订单监控**
+  - 实时订单状态查看
+  - 订单分配管理
+  - 异常订单处理
+  - 订单统计报表
+
+- **财务管理**
+  - 收入统计
+  - 服务人员分成管理
+  - 退款处理
+
+#### 3.1.4 系统管理模块
+- **权限管理**
+  - 管理员角色设置
+  - 操作权限分配
+
+- **系统配置**
+  - 服务区域配置
+  - 消息推送配置
+  - 系统参数设置
+
+### 3.2 客户端(小程序) - pet-client
+
+#### 3.2.1 用户注册登录模块
+- 微信授权登录
+- 用户信息完善
+- 宠物档案建立
+
+#### 3.2.2 服务查询模块
+- **服务项目浏览**
+  - 服务类型展示
+  - 价格信息查看
+  - 服务说明详情
+
+- **服务人员查询**
+  - 附近服务人员搜索
+  - 服务人员闲忙状态查看
+  - 服务人员评价和评分查看
+  - 服务人员资质展示
+
+#### 3.2.3 订单管理模块
+- **服务预约**
+  - 选择服务类型和时间
+  - 填写服务地址和特殊要求
+  - 选择服务人员
+  - 在线支付
+
+- **订单跟踪**
+  - 订单状态实时更新
+  - 服务进度查看
+  - 服务过程照片查看
+
+#### 3.2.4 消息通知模块
+- 订单确认通知
+- 服务开始通知
+- 服务进行中状态更新
+- 服务完成通知
+- 评价提醒
+
+#### 3.2.5 个人中心模块
+- 个人信息管理
+- 宠物档案管理
+- 订单历史查看
+- 收藏服务人员
+- 意见反馈
+
+### 3.3 服务端(小程序) - pet-employee
+
+#### 3.3.1 服务人员认证模块
+- 身份信息认证
+- 资质证书上传
+- 服务区域设置
+- 服务技能标签
+
+#### 3.3.2 订单接收模块
+- 新订单推送通知
+- 订单详情查看
+- 订单接受/拒绝操作
+- 订单状态更新
+
+#### 3.3.3 服务执行模块
+- **服务开始**
+  - 到达客户地址确认
+  - 服务前检查清单
+  - 宠物状态记录
+
+- **服务过程**
+  - 服务过程拍照记录
+  - 服务日志填写
+  - 异常情况上报
+
+- **服务完成**
+  - 服务完成确认
+  - 服务总结填写
+  - 客户签字确认
+
+#### 3.3.4 工作管理模块
+- 工作日程查看
+- 收入统计
+- 客户评价查看
+- 服务技能提升
+
+## 4. 非功能需求
+
+### 4.1 性能需求
+- 系统响应时间：页面加载 < 3秒
+- 并发用户数：支持1000+并发
+- 系统可用性：99.9%
+
+### 4.2 安全需求
+- 用户身份认证和授权
+- 敏感信息加密存储
+- 支付安全保护
+- 数据备份和恢复
+
+### 4.3 兼容性需求
+- 支持主流浏览器（Chrome、Firefox、Safari、Edge）
+- 支持微信小程序
+- 支持移动端和PC端
+
+## 5. 数据库设计
+
+### 5.1 核心数据表（基于现有设计优化）
+
+#### 5.1.1 用户相关表
+```sql
+-- 用户基础信息表
+CREATE TABLE user_info (
+    user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    openid VARCHAR(100) UNIQUE NOT NULL,
+    nickname VARCHAR(50),
+    phone VARCHAR(20),
+    avatar_url VARCHAR(255),
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- 宠物档案表
+CREATE TABLE pet_profile (
+    pet_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    type ENUM('猫', '狗', '其他') NOT NULL,
+    breed VARCHAR(50),
+    age INT,
+    weight DECIMAL(5,2),
+    health_notes TEXT,
+    photo_url VARCHAR(255),
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user_info(user_id)
+);
+
+-- 服务人员表
+CREATE TABLE caregiver_info (
+    caregiver_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    real_name VARCHAR(50) NOT NULL,
+    id_card VARCHAR(20) UNIQUE NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    service_zones JSON,
+    certifications JSON,
+    avg_rating DECIMAL(3,2) DEFAULT 5.00,
+    total_orders INT DEFAULT 0,
+    status ENUM('审核中', '已认证', '已禁用') DEFAULT '审核中',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user_info(user_id)
+);
+```
+
+#### 5.1.2 服务相关表
+```sql
+-- 服务类型表
+CREATE TABLE service_type (
+    service_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    base_price DECIMAL(10,2) NOT NULL,
+    duration INT COMMENT '预计服务时长(分钟)',
+    status ENUM('启用', '禁用') DEFAULT '启用',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 服务订单表
+CREATE TABLE pet_service_order (
+    order_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    pet_id BIGINT NOT NULL,
+    caregiver_id BIGINT,
+    service_id BIGINT NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    latitude DECIMAL(10,8),
+    longitude DECIMAL(11,8),
+    scheduled_time DATETIME NOT NULL,
+    special_notes TEXT,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status ENUM('待支付', '已支付', '已派单', '服务中', '已完成', '已取消', '已退款') DEFAULT '待支付',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user_info(user_id),
+    FOREIGN KEY (pet_id) REFERENCES pet_profile(pet_id),
+    FOREIGN KEY (caregiver_id) REFERENCES caregiver_info(caregiver_id),
+    FOREIGN KEY (service_id) REFERENCES service_type(service_id)
+);
+
+-- 服务日志表
+CREATE TABLE service_log (
+    log_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    order_id BIGINT NOT NULL,
+    caregiver_id BIGINT NOT NULL,
+    check_in_time DATETIME,
+    check_out_time DATETIME,
+    service_photos JSON,
+    service_notes TEXT,
+    walk_route JSON COMMENT '遛狗GPS轨迹',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES pet_service_order(order_id),
+    FOREIGN KEY (caregiver_id) REFERENCES caregiver_info(caregiver_id)
+);
+```
+
+#### 5.1.3 消息通知表
+```sql
+-- 消息通知表
+CREATE TABLE message_notification (
+    message_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    order_id BIGINT,
+    message_type ENUM('订单确认', '服务开始', '服务进行', '服务完成', '系统通知') NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    content TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user_info(user_id),
+    FOREIGN KEY (order_id) REFERENCES pet_service_order(order_id)
+);
+```
+
+## 6. 补充需求建议
+
+### 6.1 智能匹配系统
+- 基于地理位置、服务时间、宠物类型等因素的智能服务人员匹配
+- 服务人员工作量均衡分配算法
+
+### 6.2 安全保障机制
+- 服务人员背景调查和保险机制
+- 服务过程全程记录和监控
+- 紧急情况应急预案
+
+### 6.3 增值服务
+- 宠物健康档案管理
+- 定期健康提醒
+- 宠物社交功能
+- 宠物用品推荐
+
+### 6.4 数据分析功能
+- 服务数据统计和分析
+- 用户行为分析
+- 服务质量和满意度分析
+- 业务趋势预测
+
+## 7. 项目实施计划
+
+### 7.1 开发阶段
+1. **第一阶段**：核心功能开发
+   - 用户管理、服务管理、订单管理
+2. **第二阶段**：消息推送和移动端
+   - 小程序开发、消息推送系统
+3. **第三阶段**：管理端和优化
+   - Web管理端、系统优化

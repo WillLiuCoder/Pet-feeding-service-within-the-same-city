@@ -42,6 +42,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
+        <!-- Spring Web (包含 ResponseEntity, HttpStatus 等) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.1.5</version> <!-- 使用最新版本 -->
+        </dependency>
+
+        <!-- Spring Validation (支持 @Valid 和 MethodArgumentNotValidException) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>3.1.5</version>
+        </dependency>
     </dependencies>
 
 </project>
